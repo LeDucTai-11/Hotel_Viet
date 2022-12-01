@@ -1,0 +1,80 @@
+CREATE TABLE City(
+	id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	name VARCHAR(255) NOT NULL,
+	createddate TIMESTAMP NULL,
+  	modifieddate TIMESTAMP NULL,
+  	createdby VARCHAR(255) NULL,
+  	modifiedby VARCHAR(255) NULL,
+  	status BIT NOT NULL 
+);
+
+CREATE TABLE Hotel(
+	id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	name VARCHAR(255) NOT NULL,
+	address VARCHAR(255),
+	description VARCHAR(255),
+	city_ID INT NOT NULL,
+	createddate TIMESTAMP NULL,
+  	modifieddate TIMESTAMP NULL,
+  	createdby VARCHAR(255) NULL,
+  	modifiedby VARCHAR(255) NULL,
+  	status BIT NOT NULL
+);
+ALTER TABLE hotel ADD CONSTRAINT FOREIGN KEY(city_ID) REFERENCES City(id);
+
+CREATE TABLE Room (
+	id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	name VARCHAR(255) NOT NULL,
+	description VARCHAR(255),
+	hotel_ID INT NOT NULL,
+	price BIGINT NOT NULL,
+	createddate TIMESTAMP NULL,
+  	modifieddate TIMESTAMP NULL,
+  	createdby VARCHAR(255) NULL,
+  	modifiedby VARCHAR(255) NULL,
+  	status BIT NOT NULL
+);
+ALTER TABLE Room ADD CONSTRAINT FOREIGN KEY(hotel_id) REFERENCES Hotel(id);
+
+CREATE TABLE Role(
+	id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	name VARCHAR(255) NOT NULL,
+	code VARCHAR(255) NOT NULL,
+	createddate TIMESTAMP NULL,
+  	modifieddate TIMESTAMP NULL,
+  	createdby VARCHAR(255) NULL,
+  	modifiedby VARCHAR(255) NULL,
+  	status BIT NOT NULL
+);
+
+CREATE TABLE User(
+	id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	name VARCHAR(255) NOT NULL,
+	username VARCHAR(255) NOT NULL,
+	password VARCHAR(255) NOT NULL,
+	email VARCHAR(255) NOT NULL,
+	address VARCHAR(255) NOT NULL,
+	role_id INT NOT NULL,
+	createddate TIMESTAMP NULL,
+  	modifieddate TIMESTAMP NULL,
+  	createdby VARCHAR(255) NULL,
+  	modifiedby VARCHAR(255) NULL,
+  	status BIT NOT NULL
+);
+ALTER TABLE user ADD CONSTRAINT FOREIGN KEY(role_id) REFERENCES Role(id);
+
+CREATE TABLE Bill (
+	id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	user_id INT NOT NULL,
+	room_id INT NOT NULL,
+	createddate TIMESTAMP NULL,
+  	modifieddate TIMESTAMP NULL,
+  	createdby VARCHAR(255) NULL,
+  	modifiedby VARCHAR(255) NULL,
+  	status BIT NOT NULL
+);
+
+ALTER TABLE Bill ADD CONSTRAINT FOREIGN KEY(user_id) REFERENCES User(id);
+ALTER TABLE Bill ADD CONSTRAINT FOREIGN KEY(room_id) REFERENCES Room(id);
+
+

@@ -1,0 +1,25 @@
+:root {
+    --white-color: #fff;
+    --black-color: #000;
+    --border-color: #dbdbdb;
+    --text-color: #333;
+    --star-gold-color: #ffce3e;
+    --primary-orange-color: #fa9e1b;
+    --primary-violet-color: #8d4fff;
+    --navbar-height: 34px;
+    --header-height: 100px;
+}
+*{
+    box-sizing: inherit;
+}
+
+html {
+    font-size: 62.5%;
+    line-height: 1.6rem;
+    font-family: 'Open Sans', sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
