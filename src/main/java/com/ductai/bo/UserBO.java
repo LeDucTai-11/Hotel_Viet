@@ -18,6 +18,10 @@ public class UserBO {
 		return UserDAO.Instance().findByUserNameAndPasswordAndStatus(userName, password);
 	}
 	
+	public UserModel findByUserName(String userName) {
+		return UserDAO.Instance().findByUserName(userName);
+	}
+	
 	public List<UserModel> findAll() {
 		return UserDAO.Instance().findAll();
 	}

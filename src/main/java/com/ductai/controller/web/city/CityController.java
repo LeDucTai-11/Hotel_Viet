@@ -13,10 +13,9 @@ import com.ductai.bo.CityBO;
 @WebServlet(urlPatterns = {"/city"})
 public class CityController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private CityBO cityBO = new CityBO();
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setAttribute("listCities", this.cityBO.findAll());
+		req.setAttribute("listCities", CityBO.Instance().findAll());
 		req.getRequestDispatcher("/view/web/home.jsp").forward(req, resp);
 		
 	}

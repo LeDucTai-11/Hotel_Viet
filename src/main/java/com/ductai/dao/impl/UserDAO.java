@@ -34,6 +34,13 @@ public class UserDAO extends AbstractDAO<UserModel>  {
 		return users.isEmpty() ? null : users.get(0);
 	}
 	
+	public UserModel findByUserName(String userName) {
+		String sql = "SELECT user.*,role.name AS roleName FROM user INNER JOIN role ON user.role_id = role.id "
+				+ "WHERE username = ? and user.status = true";
+		List<UserModel> users = query(sql, new UserMapper(), userName);
+		return users.isEmpty() ? null : users.get(0);
+	}
+	
 	public UserModel findByID(Integer id) {
 		String sql = "Select * from user where id = ? and status = true";
 		List<UserModel> users = query(sql, new UserMapper(), id);

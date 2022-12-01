@@ -26,7 +26,7 @@ public class AuthorizationFilter implements Filter {
 		if(url.startsWith("/admin")) {
 			UserModel user = (UserModel) SessionUtil.Instance().getValue(request,"USERMODEL");
 			if(user != null) {
-				if(user.getRoleName().equalsIgnoreCase("Admin")) {
+				if(user.isAdmin()) {
 					filterChain.doFilter(request, respone);
 				}else {
 					respone.sendRedirect(request.getContextPath()+"/dang-nhap?action=login&message=not_permission&alert=danger");

@@ -19,19 +19,17 @@ import com.ductai.model.HotelModel;
 public class HotelController extends HttpServlet{
 
 	private static final long serialVersionUID = 1L;
-	private HotelBO hotelBO = new HotelBO();
-	private CityBO cityBO = new CityBO();
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String idCity = req.getParameter("idCity") == null ? "" : req.getParameter("idCity");
 		List<HotelModel> listHotels = new ArrayList<HotelModel>();
 		if(idCity != "") {
-			listHotels = this.hotelBO.findAll(Integer.parseInt(idCity));		
+			listHotels = HotelBO.Instance().findAll(Integer.parseInt(idCity));		
 		}else {
-			listHotels = this.hotelBO.findAll();
+			listHotels = HotelBO.Instance().findAll();
 		}
-		req.setAttribute("cityName", this.cityBO.findByID(Integer.parseInt(idCity)).getName());
+		req.setAttribute("cityName", CityBO.Instance().findByID(Integer.parseInt(idCity)).getName());
 		req.setAttribute("listHotels",listHotels);
 		RequestDispatcher rd = req.getRequestDispatcher("/view/web/hotels.jsp");
 		rd.forward(req, resp);

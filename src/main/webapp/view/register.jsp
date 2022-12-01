@@ -17,37 +17,42 @@
 							<h3>${message}</h3>
 					</div>
 				</c:if>
-			 <div class="col-lg-3 col-md-2"></div>
+			<div class="col-lg-3 col-md-2"></div>
             <div class="col-lg-6 col-md-8 login-box">
                 <div class="col-lg-12 login-key">
                     <i class="fa fa-key" aria-hidden="true"></i>
                 </div>
                 <div class="col-lg-12 login-title">
-                    LOGIN PANEL
+                    REGISTER
                 </div>
 
                 <div class="col-lg-12 login-form">
                     <div class="col-lg-12 login-form">
-                        <form action="<c:url value='/dang-nhap'/>" id="formLogin" method="post">
-                            <div class="form-group">
+                        <form action="<c:url value='/register'/>" id="formLogin" method="post">
+
+							<div class="form-group">
+								<label class="form-control-label">FULLNAME</label>
+								<input type="text" id="fullName" name="fullName" class="form-control">
+							</div>
+
+							<div class="form-group">
                                 <label class="form-control-label">USERNAME</label>
-                                <input type="text" id="username" name="username" class="form-control">
+                                <input type="text" id="userName" name="userName" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label class="form-control-label">PASSWORD</label>
                                 <input type="password" id="password" name="password" class="form-control" i>
                             </div>
-							
-							<div class="form-group" style="margin-bottom: 16px;">
-                                <h4 class="form-control-label" style="font-size: 12px;" >If you don't have a account ... Please REGISTER 
-                                    <a href="<c:url value='/register'/>">here</a>
-                                </h4>
-                            </div>
+                            
+                            <div class="form-group">
+                              <label class="form-control-label">ADDRESS</label>
+                              <input type="text" id="address" name="address" class="form-control">
+                          	</div>
 							
                             <div class="col-lg-12 loginbttm">
                                 <div class="col-lg-12 login-btm login-button">
                                 	<input type="hidden" value="login" name="action"/>
-                                    <button type="submit" class="btn btn-outline-primary btn-block btn-lg">LOGIN</button>
+                                    <button type="submit" class="btn btn-outline-primary btn-block btn-lg">REGISTER</button>
                                 </div>
                             </div>
                         </form>

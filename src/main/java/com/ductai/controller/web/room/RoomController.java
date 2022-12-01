@@ -19,19 +19,18 @@ import com.ductai.model.RoomModel;
 public class RoomController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	private RoomBO roomBO = new RoomBO();
-	private HotelBO hotelBO = new HotelBO();
+
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String idHotel = req.getParameter("idHotel") == null ? "" : req.getParameter("idHotel");
 		List<RoomModel> listRooms = new ArrayList<RoomModel>();
 		if(idHotel != "") {
-			listRooms = this.roomBO.findByHotel(Integer.parseInt(idHotel));		
+			listRooms = RoomBO.Instance().findByHotel(Integer.parseInt(idHotel));		
 		}else {
-			listRooms = this.roomBO.findAll();
+			listRooms = RoomBO.Instance().findAll();
 		}
-		req.setAttribute("hotelName", this.hotelBO.findbyID(Integer.parseInt(idHotel)).getName());
+		req.setAttribute("hotelName", HotelBO.Instance().findbyID(Integer.parseInt(idHotel)).getName());
 		req.setAttribute("listRooms", listRooms);
 		RequestDispatcher rd = req.getRequestDispatcher("/view/web/rooms.jsp");
 		rd.forward(req, resp);

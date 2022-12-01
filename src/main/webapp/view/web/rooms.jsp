@@ -28,10 +28,10 @@
 			<c:forEach var="item" items="${listRooms}" >
 				<div class="col-md-4 mb-5">
 					<div class="card h-100">
-					<img class="card-img-top" src="<c:url value = '/template/img/view.jpg'/>" alt="">
+					<img class="card-img-top" src="<c:url value = '/template/img/phong.jpg'/>" alt="">
 						<div class="card-body">
-							<h3 class="card-title">${item.name}</h3>
-							<p class="card-text">${item.address}</p>
+							<h3 class="card-title">${item.cateName} (${item.name})</h3>
+							<p class="card-text">${item.description}</p>
 						</div>
 						<div class="card-footer">
 							<a href="<c:url value='/room?idHotel=${item.id}'/>" class="btn btn-primary btn-sm">More Info</a>

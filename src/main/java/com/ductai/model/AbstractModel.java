@@ -3,7 +3,7 @@ package com.ductai.model;
 import java.sql.Timestamp;
 
 public class AbstractModel {
-	private Integer id;
+	private Integer id = -1;
 	private Timestamp createdDate;
 	private Timestamp modifiedDate;
 	private String createdBy;

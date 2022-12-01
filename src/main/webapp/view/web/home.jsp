@@ -12,14 +12,14 @@
 
 	<%@ include file="/common/web/header.jsp" %>
 	
+	
 	<div class="container">
 
 		<div style="margin-top: 32px;" class="card text-white bg-secondary my-5 py-4 text-center">
 			<h1 style="text-align: center; letter-spacing: 4px; color: #fff;">
-				DANH SÁCH THÀNH PHỐ
+				DANH SÁCH THÀNH PHỐ 
 			</h1>
 		</div>
-
 		<!-- Content Row -->
 		<div class="row">
 			<c:forEach var="item" items="${listCities}" >
