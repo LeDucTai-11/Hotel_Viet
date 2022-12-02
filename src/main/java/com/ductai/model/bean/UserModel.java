@@ -1,4 +1,4 @@
-package com.ductai.model;
+package com.ductai.model.bean;
 
 public class UserModel extends AbstractModel {
 	private String fullName;

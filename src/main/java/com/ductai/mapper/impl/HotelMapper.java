@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.ductai.mapper.RowMapper;
-import com.ductai.model.HotelModel;
+import com.ductai.model.bean.HotelModel;
 
 public class HotelMapper implements RowMapper<HotelModel> {
 

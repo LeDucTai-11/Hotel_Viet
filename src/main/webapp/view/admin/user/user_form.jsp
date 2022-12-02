@@ -13,6 +13,12 @@
 <body>
 	<%@include file="/common/admin/header.jsp" %>
 	
+	<c:if test="${not empty message}">
+		<div class="alert alert-danger" style="text-align: center;width: 100%;">
+			<h3>${message}</h3>
+		</div>
+	</c:if>
+	
 	<div style="margin-top: 32px;">
 		<h2 style="text-align: center;letter-spacing: 4px;color : red;">${tittle}</h2>
 	</div>
@@ -25,13 +31,13 @@
 					<label class="col-sm-4 col-form-label">Role :</label>
 					<div class="col-sm-8">
 						<select class="form-control" id="role_id" name="role_id">
-							<c:if test="${empty user.id}">
+							<c:if test="${user.id <= 0}">
 								<option value="">Role</option>
 								<c:forEach var="item" items="${listRoles}">
 									<option value="${item.id}">${item.name}</option>
 								</c:forEach>
 							</c:if>
-							<c:if test="${not empty user.id}">
+							<c:if test="${user.id > 0}">
 								<c:forEach var="item" items="${listRoles}">
 									<option value="${item.id}"
 										<c:if test="${item.id == user.role_id}">selected="selected"</c:if>>

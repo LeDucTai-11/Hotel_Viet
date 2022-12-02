@@ -1,9 +1,9 @@
-package com.ductai.bo;
+package com.ductai.model.bo;
 
 import java.util.List;
 
-import com.ductai.dao.impl.RoomDAO;
-import com.ductai.model.RoomModel;
+import com.ductai.model.bean.RoomModel;
+import com.ductai.model.dao.impl.RoomDAO;
 
 public class RoomBO {
 	

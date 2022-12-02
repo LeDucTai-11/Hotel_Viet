@@ -11,8 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-import com.ductai.bo.UserBO;
-import com.ductai.model.UserModel;
+import com.ductai.model.bean.UserModel;
+import com.ductai.model.bo.UserBO;
+import com.ductai.utils.SessionObject;
 import com.ductai.utils.SessionUtil;
 
 @WebServlet(urlPatterns = {"/register"})
@@ -29,7 +30,6 @@ public class RegisterController extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/html;charset=UTF-8");
 		req.setCharacterEncoding("utf-8");
-		System.out.println(UserBO.Instance().findByUserName(req.getParameter("userName")));
 		if(UserBO.Instance().findByUserName(req.getParameter("userName")) != null) {
 			req.setAttribute("alert", "danger");
 			req.setAttribute("message", "USERNAME đã bị trùng, vui lòng tạo USERNAME khác!");
@@ -42,7 +42,7 @@ public class RegisterController extends HttpServlet {
 				user.setCreatedDate(new Timestamp(System.currentTimeMillis()));
 				user.setCreatedBy("REGISTER");
 				UserBO.Instance().saveUser(user);
-				SessionUtil.Instance().putValue(req, "USERMODEL", user);
+				SessionUtil.Instance().putValue(req, "USERMODEL", new SessionObject(user.getUserName(),user.getFullName()));
 				resp.sendRedirect(req.getContextPath()+"/trang-chu");
 			}catch (Exception ex) {
 				ex.printStackTrace();

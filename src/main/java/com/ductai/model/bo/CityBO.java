@@ -1,9 +1,9 @@
-package com.ductai.bo;
+package com.ductai.model.bo;
 
 import java.util.List;
 
-import com.ductai.dao.impl.CityDAO;
-import com.ductai.model.CityModel;
+import com.ductai.model.bean.CityModel;
+import com.ductai.model.dao.impl.CityDAO;
 
 public class CityBO {
 	private static CityBO _Instance = null;
@@ -20,6 +20,18 @@ public class CityBO {
 	
 	public CityModel findByID(Integer id) {
 		return CityDAO.Instance().findByID(id);
+	}
+	
+	public boolean isValidName(Integer id,String name) {
+		CityModel city = CityDAO.Instance().findByName(name);
+		if(city == null) return true;
+		
+		if(id <= 0) {
+			if(city != null) return false;
+		}else {
+			if(city.getId() != id) return false;
+		}
+		return true;
 	}
 	
 	public void saveCity(CityModel city) {

@@ -1,9 +1,9 @@
-package com.ductai.dao.impl;
+package com.ductai.model.dao.impl;
 
 import java.util.List;
 
 import com.ductai.mapper.impl.CategoryRoomMapper;
-import com.ductai.model.CategoryRoomModel;
+import com.ductai.model.bean.CategoryRoomModel;
 
 public class CategoryRoomDAO extends AbstractDAO<CategoryRoomModel>{
 	private static CategoryRoomDAO _Instance = null;
@@ -22,6 +22,12 @@ public class CategoryRoomDAO extends AbstractDAO<CategoryRoomModel>{
 	public CategoryRoomModel findByID(Integer id) {
 		String sql = "Select * from roomcate where id = ? and status = true";
 		List<CategoryRoomModel> categories = query(sql, new CategoryRoomMapper(), id);
+		return categories.isEmpty() ? null : categories.get(0);
+	}
+	
+	public CategoryRoomModel findByName(String name) {
+		String sql = "Select * from roomcate where name = ? and status = true";
+		List<CategoryRoomModel> categories = query(sql, new CategoryRoomMapper(), name);
 		return categories.isEmpty() ? null : categories.get(0);
 	}
 	

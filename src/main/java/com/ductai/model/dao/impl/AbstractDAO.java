@@ -1,4 +1,4 @@
-package com.ductai.dao.impl;
+package com.ductai.model.dao.impl;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,8 +9,8 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ductai.dao.GenericDAO;
 import com.ductai.mapper.RowMapper;
+import com.ductai.model.dao.GenericDAO;
 
 public class AbstractDAO<T> implements GenericDAO<T> {
 	

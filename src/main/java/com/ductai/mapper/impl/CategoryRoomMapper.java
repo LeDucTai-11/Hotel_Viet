@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.ductai.mapper.RowMapper;
-import com.ductai.model.CategoryRoomModel;
+import com.ductai.model.bean.CategoryRoomModel;
 
 public class CategoryRoomMapper implements RowMapper<CategoryRoomModel> {
 

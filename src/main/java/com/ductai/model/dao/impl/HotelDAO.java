@@ -1,9 +1,9 @@
-package com.ductai.dao.impl;
+package com.ductai.model.dao.impl;
 
 import java.util.List;
 
 import com.ductai.mapper.impl.HotelMapper;
-import com.ductai.model.HotelModel;
+import com.ductai.model.bean.HotelModel;
 
 public class HotelDAO extends AbstractDAO<HotelModel> {
 	private static HotelDAO _Instance = null;

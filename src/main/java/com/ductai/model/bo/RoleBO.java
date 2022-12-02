@@ -1,9 +1,9 @@
-package com.ductai.bo;
+package com.ductai.model.bo;
 
 import java.util.List;
 
-import com.ductai.dao.impl.RoleDAO;
-import com.ductai.model.RoleModel;
+import com.ductai.model.bean.RoleModel;
+import com.ductai.model.dao.impl.RoleDAO;
 
 public class RoleBO {
 	private static RoleBO _Instance;
@@ -20,6 +20,18 @@ public class RoleBO {
 	
 	public RoleModel findByID(Integer id) {
 		return RoleDAO.Instance().findByID(id);
+	}
+	
+	public boolean isValid(Integer id,String name) {
+		RoleModel role = RoleDAO.Instance().findByName(name);
+		if(role == null) return true;
+		
+		if(id <= 0) {
+			if(role != null) return false;
+		}else {
+			if(role.getId() != id) return false;
+		}
+		return true;
 	}
 	
 	public void saveRole(RoleModel role) {

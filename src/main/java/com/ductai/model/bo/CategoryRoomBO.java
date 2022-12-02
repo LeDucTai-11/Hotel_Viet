@@ -1,9 +1,9 @@
-package com.ductai.bo;
+package com.ductai.model.bo;
 
 import java.util.List;
 
-import com.ductai.dao.impl.CategoryRoomDAO;
-import com.ductai.model.CategoryRoomModel;
+import com.ductai.model.bean.CategoryRoomModel;
+import com.ductai.model.dao.impl.CategoryRoomDAO;
 
 public class CategoryRoomBO {
 	private static CategoryRoomBO _Instance;
@@ -20,6 +20,18 @@ public class CategoryRoomBO {
 	
 	public CategoryRoomModel findByID(Integer id) {
 		return CategoryRoomDAO.Instance().findByID(id);
+	}
+	
+	public boolean isValid(Integer id,String name) {
+		CategoryRoomModel cate = CategoryRoomDAO.Instance().findByName(name);
+		if(cate == null) return true;
+		
+		if(id <= 0) {
+			if(cate != null) return false;
+		}else {
+			if(cate.getId() != id) return false;
+		}
+		return true;
 	}
 	
 	public void save(CategoryRoomModel category) {

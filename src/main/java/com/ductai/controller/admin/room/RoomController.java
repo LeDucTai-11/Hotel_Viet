@@ -14,11 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-import com.ductai.bo.CategoryRoomBO;
-import com.ductai.bo.HotelBO;
-import com.ductai.bo.RoomBO;
-import com.ductai.model.RoomModel;
-import com.ductai.model.UserModel;
+import com.ductai.model.bean.RoomModel;
+import com.ductai.model.bo.CategoryRoomBO;
+import com.ductai.model.bo.HotelBO;
+import com.ductai.model.bo.RoomBO;
+import com.ductai.utils.SessionObject;
 import com.ductai.utils.SessionUtil;
 
 @WebServlet(urlPatterns = {"/admin/room"})
@@ -46,13 +46,20 @@ public class RoomController extends HttpServlet {
 		}else if(action != null && action.equals("delete")) {
 			String id = req.getParameter("id");
 			RoomBO.Instance().delete(Integer.parseInt(id));
-			req.setAttribute("listRooms", RoomBO.Instance().findAll());
+			List<RoomModel> listRooms = RoomBO.Instance().findAll();
+			int lastPage = listRooms.size() % 5 == 0 ? listRooms.size() /5 : listRooms.size() / 5 +1;
+			req.setAttribute("lastPage", lastPage);
+			req.setAttribute("currentPage", 1);
+			req.setAttribute("listRooms", findByPage(1, listRooms));
 			req.setAttribute("message", "Delete successfully the Room with ID: "+id);
 			RequestDispatcher rd = req.getRequestDispatcher("/view/admin/room/rooms.jsp");
 			rd.forward(req, resp);
 		}else {
 			String idHotel = req.getParameter("idHotel");
 			String idCategory = req.getParameter("idCategory");
+			String pageRequest = req.getParameter("page");
+			Integer page = (pageRequest != null && Integer.parseInt(pageRequest) > 0) ? 
+					Integer.parseInt(pageRequest) : 1;
 			List<RoomModel> listRooms = new ArrayList<RoomModel>();
 			if(idHotel != null) {
 				listRooms = RoomBO.Instance().findByHotel(Integer.parseInt(idHotel));		
@@ -62,7 +69,10 @@ public class RoomController extends HttpServlet {
 			else {
 				listRooms = RoomBO.Instance().findAll();
 			}
-			req.setAttribute("listRooms", listRooms);
+			int lastPage = listRooms.size() % 5 == 0 ? listRooms.size() /5 : listRooms.size() / 5 +1;
+			req.setAttribute("lastPage", lastPage);
+			req.setAttribute("currentPage", page);
+			req.setAttribute("listRooms", findByPage(page, listRooms));
 			req.setAttribute("message", req.getParameter("message"));
 			RequestDispatcher rd = req.getRequestDispatcher("/view/admin/room/rooms.jsp");
 			rd.forward(req, resp);
@@ -75,13 +85,15 @@ public class RoomController extends HttpServlet {
 		resp.setContentType("text/html;charset=UTF-8");
 		req.setCharacterEncoding("utf-8");
 		RoomModel model = new RoomModel();
-		String id = req.getParameter("id") == null ? "" : req.getParameter("id");
-		UserModel user = (UserModel)SessionUtil.Instance().getValue(req, "USERMODEL");
+		String idRequest = req.getParameter("id");
+		Integer id = (idRequest != null && Integer.parseInt(idRequest) > 0) ? 
+				Integer.parseInt(idRequest) : -1;
+		SessionObject user = (SessionObject)SessionUtil.Instance().getValue(req, "USERMODEL");
 		String message = "";
 		try {
 			BeanUtils.populate(model, req.getParameterMap());
-			if(id != "") {
-				model.setId(Integer.parseInt(id));
+			if(id > 0) {
+				model.setId(id);
 				model.setModifiedDate(new Timestamp(System.currentTimeMillis()));
 				model.setModifiedBy(user.getFullName());
 				message = "Edit the ROOM successfully with ID: "+id;
@@ -96,6 +108,16 @@ public class RoomController extends HttpServlet {
 			ex.printStackTrace();
 		}
 		
+	}
+	
+	public List<RoomModel> findByPage(int page,List<RoomModel> data) {
+		List<RoomModel> result = new ArrayList<RoomModel>();
+		int startCount = (page-1)*5;
+		int endCount = ((startCount + 4) < data.size()) ? (startCount + 4 ) : data.size() - 1;
+		for (int i = startCount; i <= endCount;i++) {
+			result.add(data.get(i));
+		}
+		return result;
 	}
 	
 

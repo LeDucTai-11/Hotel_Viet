@@ -1,9 +1,9 @@
-package com.ductai.bo;
+package com.ductai.model.bo;
 
 import java.util.List;
 
-import com.ductai.dao.impl.HotelDAO;
-import com.ductai.model.HotelModel;
+import com.ductai.model.bean.HotelModel;
+import com.ductai.model.dao.impl.HotelDAO;
 
 public class HotelBO {
 	private static HotelBO _Instance = null;

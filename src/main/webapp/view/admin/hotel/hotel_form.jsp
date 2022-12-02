@@ -25,13 +25,13 @@
 					<label class="col-sm-4 col-form-label">Thành phố :</label>
 					<div class="col-sm-8">
 						<select class="form-control" id="city_id" name="city_id">
-							<c:if test="${empty hotel.id}">
+							<c:if test="${hotel.id <= 0}">
 								<option value="">Thành phố</option>
 								<c:forEach var="item" items="${listCities}">
 									<option value="${item.id}">${item.name}</option>
 								</c:forEach>
 							</c:if>
-							<c:if test="${not empty hotel.id}">
+							<c:if test="${hotel.id > 0}">
 								<c:forEach var="item" items="${listCities}">
 									<option value="${item.id}"
 										<c:if test="${item.id == hotel.city_id}">selected="selected"</c:if>>

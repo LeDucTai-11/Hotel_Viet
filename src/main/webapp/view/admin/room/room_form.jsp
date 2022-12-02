@@ -25,13 +25,13 @@
 					<label class="col-sm-4 col-form-label">Khách sạn :</label>
 					<div class="col-sm-8">
 						<select class="form-control" id="hotel_id" name="hotel_id">
-							<c:if test="${empty room.id}">
+							<c:if test="${room.id <= 0}">
 								<option value="">Khách sạn</option>
 								<c:forEach var="item" items="${listHotels}">
 									<option value="${item.id}">${item.name}</option>
 								</c:forEach>
 							</c:if>
-							<c:if test="${not empty room.id}">
+							<c:if test="${room.id > 0}">
 								<c:forEach var="item" items="${listHotels}">
 									<option value="${item.id}"
 										<c:if test="${item.id == room.hotel_id}">selected="selected"</c:if>>
@@ -47,13 +47,13 @@
 					<label class="col-sm-4 col-form-label">Loại phòng :</label>
 					<div class="col-sm-8">
 						<select class="form-control" id="roomcate_id" name="roomcate_id">
-							<c:if test="${empty room.id}">
+							<c:if test="${room.id <= 0}">
 								<option value="">Loại phòng</option>
 								<c:forEach var="item" items="${listCates}">
 									<option value="${item.id}">${item.name}</option>
 								</c:forEach>
 							</c:if>
-							<c:if test="${not empty room.id}">
+							<c:if test="${room.id > 0}">
 								<c:forEach var="item" items="${listCates}">
 									<option value="${item.id}"
 										<c:if test="${item.id == room.roomcate_id}">selected="selected"</c:if>>

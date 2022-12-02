@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.ductai.mapper.RowMapper;
-import com.ductai.model.RoleModel;
+import com.ductai.model.bean.RoleModel;
 
 public class RoleMapper implements RowMapper<RoleModel>{
 

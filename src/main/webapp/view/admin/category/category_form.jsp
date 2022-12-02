@@ -13,6 +13,12 @@
 <body>
 	<%@include file="/common/admin/header.jsp" %>
 	
+	<c:if test="${not empty message}">
+		<div class="alert alert-danger" style="text-align: center;width: 100%;">
+			<h3>${message}</h3>
+		</div>
+	</c:if>
+	
 	<div style="margin-top: 32px;">
 		<h2 style="text-align: center;letter-spacing: 4px;color : red;">${tittle}</h2>
 	</div>

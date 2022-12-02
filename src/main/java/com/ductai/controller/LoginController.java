@@ -8,9 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ductai.bo.UserBO;
 import com.ductai.constant.MessageConstant;
-import com.ductai.model.UserModel;
+import com.ductai.model.bean.UserModel;
+import com.ductai.model.bo.UserBO;
+import com.ductai.utils.SessionObject;
 import com.ductai.utils.SessionUtil;
 
 @WebServlet(urlPatterns = {"/dang-nhap"})
@@ -43,7 +44,7 @@ public class LoginController extends HttpServlet {
 			String password = req.getParameter("password");
 			UserModel user = UserBO.Instance().findByUserNameAndPasswordAndStatus(username, password);
 			if(user != null) {
-				SessionUtil.Instance().putValue(req, "USERMODEL", user);
+				SessionUtil.Instance().putValue(req, "USERMODEL", new SessionObject(username, user.getFullName()));
 				if(user.isAdmin()) {
 					resp.sendRedirect(req.getContextPath()+"/admin-home");
 				}else {

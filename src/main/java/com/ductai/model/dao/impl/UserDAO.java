@@ -1,9 +1,9 @@
-package com.ductai.dao.impl;
+package com.ductai.model.dao.impl;
 
 import java.util.List;
 
 import com.ductai.mapper.impl.UserMapper;
-import com.ductai.model.UserModel;
+import com.ductai.model.bean.UserModel;
 
 public class UserDAO extends AbstractDAO<UserModel>  {
 	

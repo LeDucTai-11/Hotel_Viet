@@ -14,9 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-import com.ductai.bo.RoleBO;
-import com.ductai.bo.UserBO;
-import com.ductai.model.UserModel;
+import com.ductai.model.bean.UserModel;
+import com.ductai.model.bo.RoleBO;
+import com.ductai.model.bo.UserBO;
+import com.ductai.utils.SessionObject;
 import com.ductai.utils.SessionUtil;
 
 @WebServlet(urlPatterns = {"/admin/user"})
@@ -42,20 +43,30 @@ public class UserController extends HttpServlet {
 		}else if(action != null && action.equals("delete")) {
 			String id = req.getParameter("id");
 			UserBO.Instance().delete(Integer.parseInt(id));
+			List<UserModel> listUsers = UserBO.Instance().findAll();
+			int lastPage = listUsers.size() % 5 == 0 ? listUsers.size() /5 : listUsers.size() / 5 +1;
+			req.setAttribute("lastPage", lastPage);
+			req.setAttribute("currentPage", 1);
+			req.setAttribute("listUsers",findByPage(1, listUsers));
 			req.setAttribute("message", "Delete successfully the User with ID: "+id);
-			req.setAttribute("listUsers", UserBO.Instance().findAll());
 			RequestDispatcher rd = req.getRequestDispatcher("/view/admin/user/users.jsp");
 			rd.forward(req, resp);
 		}else {
 			String idRole = req.getParameter("idRole") == null ? "" : req.getParameter("idRole");
 			String message = req.getParameter("message") == null ? "" : req.getParameter("message");
+			String pageRequest = req.getParameter("page");
+			Integer page = (pageRequest != null && Integer.parseInt(pageRequest) > 0) ? 
+					Integer.parseInt(pageRequest) : 1;
 			List<UserModel> listUsers = new ArrayList<UserModel>();
 			if(idRole != "") {
 				listUsers = UserBO.Instance().findByRole(Integer.parseInt(idRole));		
 			}else {
 				listUsers = UserBO.Instance().findAll();
 			}
-			req.setAttribute("listUsers",listUsers);
+			int lastPage = listUsers.size() % 5 == 0 ? listUsers.size() /5 : listUsers.size() / 5 +1;
+			req.setAttribute("lastPage", lastPage);
+			req.setAttribute("currentPage", page);
+			req.setAttribute("listUsers",findByPage(page, listUsers));
 			req.setAttribute("message",message);
 			RequestDispatcher rd = req.getRequestDispatcher("/view/admin/user/users.jsp");
 			rd.forward(req, resp);
@@ -67,26 +78,52 @@ public class UserController extends HttpServlet {
 		resp.setContentType("text/html;charset=UTF-8");
 		req.setCharacterEncoding("utf-8");
 		UserModel model = new UserModel();
-		String id = req.getParameter("id") == null ? "" : req.getParameter("id");
-		UserModel user = (UserModel)SessionUtil.Instance().getValue(req, "USERMODEL");
+		String idRequest = req.getParameter("id");
+		Integer id = (idRequest != null && Integer.parseInt(idRequest) > 0) ? 
+				Integer.parseInt(idRequest) : -1;
+		SessionObject user = (SessionObject)SessionUtil.Instance().getValue(req, "USERMODEL");
 		String message = "";
-		try {
-			BeanUtils.populate(model, req.getParameterMap());
-			if(id != "") {
-				model.setId(Integer.parseInt(id));
-				model.setModifiedDate(new Timestamp(System.currentTimeMillis()));
-				model.setModifiedBy(user.getFullName());
-				message = "Edit the USER successfully with ID: "+id;
+		if(UserBO.Instance().isValidUserName(id, req.getParameter("userName")) == false) {
+			if(id <= 0) {
+				req.setAttribute("tittle", "ADD USER");
+				req.setAttribute("listRoles", RoleBO.Instance().findAll());
+				req.setAttribute("user", new UserModel());
 			}else {
-				model.setCreatedDate(new Timestamp(System.currentTimeMillis()));
-				model.setCreatedBy(user.getFullName());
-				message = "Add the USER successfully";
+				req.setAttribute("tittle", "EDIT USER WITH ID: "+req.getParameter("id"));
+				req.setAttribute("listRoles", RoleBO.Instance().findAll());
+				req.setAttribute("user",UserBO.Instance().findByID(Integer.parseInt(req.getParameter("id"))));
 			}
-			UserBO.Instance().saveUser(model);
-			resp.sendRedirect(req.getContextPath()+"/admin/user?message="+message);
-		}catch(Exception ex) {
-			ex.printStackTrace();
+			req.setAttribute("message", "Username đã bị trùng");
+			req.getRequestDispatcher("/view/admin/user/user_form.jsp").forward(req, resp);
+		}else {
+			try {
+				BeanUtils.populate(model, req.getParameterMap());
+				if(id > 0) {
+					model.setId(id);
+					model.setModifiedDate(new Timestamp(System.currentTimeMillis()));
+					model.setModifiedBy(user.getFullName());
+					message = "Edit the USER successfully with ID: "+id;
+				}else {
+					model.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+					model.setCreatedBy(user.getFullName());
+					message = "Add the USER successfully";
+				}
+				UserBO.Instance().saveUser(model);
+				resp.sendRedirect(req.getContextPath()+"/admin/user?message="+message);
+			}catch(Exception ex) {
+				ex.printStackTrace();
+			}
 		}
+	}
+	
+	public List<UserModel> findByPage(int page,List<UserModel> data) {
+		List<UserModel> result = new ArrayList<UserModel>();
+		int startCount = (page-1)*5;
+		int endCount = ((startCount + 4) < data.size()) ? (startCount + 4 ) : data.size() - 1;
+		for (int i = startCount; i <= endCount;i++) {
+			result.add(data.get(i));
+		}
+		return result;
 	}
 
 }

@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ductai.bo.HotelBO;
-import com.ductai.bo.RoomBO;
-import com.ductai.model.RoomModel;
+import com.ductai.model.bean.RoomModel;
+import com.ductai.model.bo.HotelBO;
+import com.ductai.model.bo.RoomBO;
 
 @WebServlet(urlPatterns = {"/room"})
 public class RoomController extends HttpServlet {

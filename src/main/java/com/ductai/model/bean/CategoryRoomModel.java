@@ -1,7 +1,6 @@
-package com.ductai.model;
+package com.ductai.model.bean;
 
-public class CityModel extends AbstractModel {
-
+public class CategoryRoomModel extends AbstractModel{
 	private String name;
 
 	public String getName() {
@@ -11,6 +10,5 @@ public class CityModel extends AbstractModel {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
 	
 }

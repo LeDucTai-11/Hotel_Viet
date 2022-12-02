@@ -1,4 +1,4 @@
-package com.ductai.model;
+package com.ductai.model.bean;
 
 public class HotelModel extends AbstractModel {
 	private String name;

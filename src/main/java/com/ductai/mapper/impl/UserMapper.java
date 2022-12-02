@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.ductai.mapper.RowMapper;
-import com.ductai.model.UserModel;
+import com.ductai.model.bean.UserModel;
 
 public class UserMapper implements RowMapper<UserModel> {
 

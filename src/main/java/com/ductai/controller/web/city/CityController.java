@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ductai.bo.CityBO;
+import com.ductai.model.bo.CityBO;
 
 @WebServlet(urlPatterns = {"/city"})
 public class CityController extends HttpServlet {

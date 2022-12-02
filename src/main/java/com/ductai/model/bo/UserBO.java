@@ -1,9 +1,9 @@
-package com.ductai.bo;
+package com.ductai.model.bo;
 
 import java.util.List;
 
-import com.ductai.dao.impl.UserDAO;
-import com.ductai.model.UserModel;
+import com.ductai.model.bean.UserModel;
+import com.ductai.model.dao.impl.UserDAO;
 
 public class UserBO {
 	private static UserBO _Instance = null;
@@ -27,6 +27,18 @@ public class UserBO {
 	}
 	public UserModel findByID(Integer id) {
 		return UserDAO.Instance().findByID(id);
+	}
+	
+	public boolean isValidUserName(Integer id,String userName) {
+		UserModel foundUser = UserDAO.Instance().findByUserName(userName);
+		if(foundUser == null) return true;
+		
+		if(id <= 0) {
+			if(foundUser != null) return false;
+		}else {
+			if(foundUser.getId() != id) return false;
+		}
+		return true;
 	}
 	
 	public List<UserModel> findByRole(Integer idRole) {

@@ -1,9 +1,9 @@
-package com.ductai.dao.impl;
+package com.ductai.model.dao.impl;
 
 import java.util.List;
 
 import com.ductai.mapper.impl.RoleMapper;
-import com.ductai.model.RoleModel;
+import com.ductai.model.bean.RoleModel;
 
 public class RoleDAO extends AbstractDAO<RoleModel>{
 	private static RoleDAO _Instance = null;
@@ -22,6 +22,12 @@ public class RoleDAO extends AbstractDAO<RoleModel>{
 	public RoleModel findByID(Integer id) {
 		String sql = "Select * from role where id = ? and status = true";
 		List<RoleModel> roles = query(sql, new RoleMapper(), id);
+		return roles.isEmpty() ? null : roles.get(0);
+	}
+	
+	public RoleModel findByName(String name) {
+		String sql = "Select * from role where name = ? and status = true";
+		List<RoleModel> roles = query(sql, new RoleMapper(), name);
 		return roles.isEmpty() ? null : roles.get(0);
 	}
 	

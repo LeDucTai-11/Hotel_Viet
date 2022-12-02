@@ -11,7 +11,8 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ductai.model.UserModel;
+import com.ductai.model.bo.UserBO;
+import com.ductai.utils.SessionObject;
 import com.ductai.utils.SessionUtil;
 
 @WebFilter(urlPatterns = {"/admin*"})
@@ -24,9 +25,9 @@ public class AuthorizationFilter implements Filter {
 		HttpServletResponse respone = (HttpServletResponse) servletResponse;
 		String url = request.getServletPath();
 		if(url.startsWith("/admin")) {
-			UserModel user = (UserModel) SessionUtil.Instance().getValue(request,"USERMODEL");
+			SessionObject user = (SessionObject) SessionUtil.Instance().getValue(request,"USERMODEL");
 			if(user != null) {
-				if(user.isAdmin()) {
+				if(UserBO.Instance().findByUserName(user.getUserName()).isAdmin()) {
 					filterChain.doFilter(request, respone);
 				}else {
 					respone.sendRedirect(request.getContextPath()+"/dang-nhap?action=login&message=not_permission&alert=danger");

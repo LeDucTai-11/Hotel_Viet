@@ -1,9 +1,9 @@
-package com.ductai.dao.impl;
+package com.ductai.model.dao.impl;
 
 import java.util.List;
 
 import com.ductai.mapper.impl.RoomMapper;
-import com.ductai.model.RoomModel;
+import com.ductai.model.bean.RoomModel;
 
 public class RoomDAO extends AbstractDAO<RoomModel>  {
 	

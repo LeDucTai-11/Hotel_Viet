@@ -1,4 +1,4 @@
-package com.ductai.dao;
+package com.ductai.model.dao;
 
 import java.util.List;
 
