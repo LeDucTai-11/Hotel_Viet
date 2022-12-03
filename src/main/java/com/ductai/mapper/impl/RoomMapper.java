@@ -4,14 +4,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.ductai.mapper.RowMapper;
-import com.ductai.model.bean.RoomModel;
+import com.ductai.model.bean.RoomBean;
 
-public class RoomMapper implements RowMapper<RoomModel> {
+public class RoomMapper implements RowMapper<RoomBean> {
 
 	@Override
-	public RoomModel mapRow(ResultSet rs) {
+	public RoomBean mapRow(ResultSet rs) {
 		try {
-			RoomModel result = new RoomModel();
+			RoomBean result = new RoomBean();
 			result.setId(rs.getInt("id"));
 			result.setName(rs.getString("name"));
 			result.setDescription(rs.getString("description"));

@@ -1,6 +1,6 @@
 package com.ductai.model.bean;
 
-public class RoleModel extends AbstractModel {
+public class RoleBean extends AbstractBean {
 	private String name;
 	private String code;
 	public String getName() {

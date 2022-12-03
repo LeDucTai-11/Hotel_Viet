@@ -2,7 +2,7 @@ package com.ductai.model.bo;
 
 import java.util.List;
 
-import com.ductai.model.bean.UserModel;
+import com.ductai.model.bean.UserBean;
 import com.ductai.model.dao.impl.UserDAO;
 
 public class UserBO {
@@ -14,23 +14,23 @@ public class UserBO {
 		return _Instance;
 	}
 	
-	public UserModel findByUserNameAndPasswordAndStatus(String userName, String password) {
+	public UserBean findByUserNameAndPasswordAndStatus(String userName, String password) {
 		return UserDAO.Instance().findByUserNameAndPasswordAndStatus(userName, password);
 	}
 	
-	public UserModel findByUserName(String userName) {
+	public UserBean findByUserName(String userName) {
 		return UserDAO.Instance().findByUserName(userName);
 	}
 	
-	public List<UserModel> findAll() {
+	public List<UserBean> findAll() {
 		return UserDAO.Instance().findAll();
 	}
-	public UserModel findByID(Integer id) {
+	public UserBean findByID(Integer id) {
 		return UserDAO.Instance().findByID(id);
 	}
 	
 	public boolean isValidUserName(Integer id,String userName) {
-		UserModel foundUser = UserDAO.Instance().findByUserName(userName);
+		UserBean foundUser = UserDAO.Instance().findByUserName(userName);
 		if(foundUser == null) return true;
 		
 		if(id <= 0) {
@@ -41,11 +41,11 @@ public class UserBO {
 		return true;
 	}
 	
-	public List<UserModel> findByRole(Integer idRole) {
+	public List<UserBean> findByRole(Integer idRole) {
 		return UserDAO.Instance().findByRoleID(idRole);
 	}
 	
-	public void saveUser(UserModel user) {
+	public void saveUser(UserBean user) {
 		UserDAO.Instance().saveUser(user);
 	}
 	

@@ -4,14 +4,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.ductai.mapper.RowMapper;
-import com.ductai.model.bean.UserModel;
+import com.ductai.model.bean.UserBean;
 
-public class UserMapper implements RowMapper<UserModel> {
+public class UserMapper implements RowMapper<UserBean> {
 
 	@Override
-	public UserModel mapRow(ResultSet rs) {
+	public UserBean mapRow(ResultSet rs) {
 		try {
-			UserModel result = new UserModel();
+			UserBean result = new UserBean();
 			result.setId(rs.getInt("id"));
 			result.setFullName(rs.getString("fullname"));
 			result.setUserName(rs.getString("username"));

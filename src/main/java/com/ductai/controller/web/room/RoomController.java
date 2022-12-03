@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ductai.model.bean.RoomModel;
+import com.ductai.model.bean.RoomBean;
 import com.ductai.model.bo.HotelBO;
 import com.ductai.model.bo.RoomBO;
 
@@ -24,7 +24,7 @@ public class RoomController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String idHotel = req.getParameter("idHotel") == null ? "" : req.getParameter("idHotel");
-		List<RoomModel> listRooms = new ArrayList<RoomModel>();
+		List<RoomBean> listRooms = new ArrayList<RoomBean>();
 		if(idHotel != "") {
 			listRooms = RoomBO.Instance().findByHotel(Integer.parseInt(idHotel));		
 		}else {

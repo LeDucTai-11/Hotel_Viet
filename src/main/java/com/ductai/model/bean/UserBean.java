@@ -1,6 +1,6 @@
 package com.ductai.model.bean;
 
-public class UserModel extends AbstractModel {
+public class UserBean extends AbstractBean {
 	private String fullName;
 	private String userName;
 	private String password;

@@ -1,6 +1,6 @@
 package com.ductai.model.bean;
 
-public class RoomModel extends AbstractModel {
+public class RoomBean extends AbstractBean {
 	private String name;
 	private String description;
 	private Integer hotel_id;

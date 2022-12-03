@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-import com.ductai.model.bean.UserModel;
+import com.ductai.model.bean.UserBean;
 import com.ductai.model.bo.UserBO;
 import com.ductai.utils.SessionObject;
 import com.ductai.utils.SessionUtil;
@@ -35,7 +35,7 @@ public class RegisterController extends HttpServlet {
 			req.setAttribute("message", "USERNAME đã bị trùng, vui lòng tạo USERNAME khác!");
 			req.getRequestDispatcher("/view/register.jsp").forward(req, resp);
 		}else {
-			UserModel user = new UserModel();
+			UserBean user = new UserBean();
 			try {
 				BeanUtils.populate(user,req.getParameterMap());
 				user.setRole_id(2);

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-import com.ductai.model.bean.HotelModel;
+import com.ductai.model.bean.HotelBean;
 import com.ductai.model.bo.CityBO;
 import com.ductai.model.bo.HotelBO;
 import com.ductai.utils.SessionObject;
@@ -33,7 +33,7 @@ public class HotelController extends HttpServlet{
 		if(action != null && action.equals("add")) {
 			req.setAttribute("tittle", "ADD HOTEL");
 			req.setAttribute("listCities", CityBO.Instance().findAll());
-			req.setAttribute("hotel", new HotelModel());
+			req.setAttribute("hotel", new HotelBean());
 			req.getRequestDispatcher("/view/admin/hotel/hotel_form.jsp").forward(req, resp);
 		}else if(action != null && action.equals("edit")) {
 			req.setAttribute("tittle", "EDIT HOTEL WITH ID: "+req.getParameter("id"));
@@ -43,7 +43,7 @@ public class HotelController extends HttpServlet{
 		}else if(action != null && action.equals("delete")) {
 			String id = req.getParameter("id");
 			HotelBO.Instance().delete(Integer.parseInt(id));
-			List<HotelModel> data = HotelBO.Instance().findAll();
+			List<HotelBean> data = HotelBO.Instance().findAll();
 			int lastPage = data.size() % 5 == 0 ? data.size() /5 : data.size() / 5 +1;
 			req.setAttribute("lastPage", lastPage);
 			req.setAttribute("currentPage", 1);
@@ -57,7 +57,7 @@ public class HotelController extends HttpServlet{
 			String pageRequest = req.getParameter("page");
 			Integer page = (pageRequest != null && Integer.parseInt(pageRequest) > 0) ? 
 					Integer.parseInt(pageRequest) : 1;
-			List<HotelModel> data = new ArrayList<HotelModel>();
+			List<HotelBean> data = new ArrayList<HotelBean>();
 			if(idCity == null) {
 				data = HotelBO.Instance().findAll();
 			}else {
@@ -78,7 +78,7 @@ public class HotelController extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/html;charset=UTF-8");
 		req.setCharacterEncoding("utf-8");
-		HotelModel hotel = new HotelModel();
+		HotelBean hotel = new HotelBean();
 		String idRequest = req.getParameter("id");
 		Integer id = (idRequest != null && Integer.parseInt(idRequest) > 0) ? 
 				Integer.parseInt(idRequest) : -1;
@@ -103,8 +103,8 @@ public class HotelController extends HttpServlet{
 		}
 	}
 	
-	public List<HotelModel> findByPage(int page,List<HotelModel> data) {
-		List<HotelModel> result = new ArrayList<HotelModel>();
+	public List<HotelBean> findByPage(int page,List<HotelBean> data) {
+		List<HotelBean> result = new ArrayList<HotelBean>();
 		int startCount = (page-1)*5;
 		int endCount = ((startCount + 4) < data.size()) ? (startCount + 4 ) : data.size() - 1;
 		for (int i = startCount; i <= endCount;i++) {

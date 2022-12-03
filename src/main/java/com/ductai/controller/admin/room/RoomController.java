@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-import com.ductai.model.bean.RoomModel;
+import com.ductai.model.bean.RoomBean;
 import com.ductai.model.bo.CategoryRoomBO;
 import com.ductai.model.bo.HotelBO;
 import com.ductai.model.bo.RoomBO;
@@ -35,7 +35,7 @@ public class RoomController extends HttpServlet {
 			req.setAttribute("tittle", "ADD ROOM");
 			req.setAttribute("listHotels", HotelBO.Instance().findAll());
 			req.setAttribute("listCates", CategoryRoomBO.Instance().findAll());
-			req.setAttribute("room", new RoomModel());
+			req.setAttribute("room", new RoomBean());
 			req.getRequestDispatcher("/view/admin/room/room_form.jsp").forward(req, resp);
 		}else if(action != null && action.equals("edit")) {
 			req.setAttribute("tittle", "EDIT ROOM WITH ID: "+req.getParameter("id"));
@@ -46,7 +46,7 @@ public class RoomController extends HttpServlet {
 		}else if(action != null && action.equals("delete")) {
 			String id = req.getParameter("id");
 			RoomBO.Instance().delete(Integer.parseInt(id));
-			List<RoomModel> listRooms = RoomBO.Instance().findAll();
+			List<RoomBean> listRooms = RoomBO.Instance().findAll();
 			int lastPage = listRooms.size() % 5 == 0 ? listRooms.size() /5 : listRooms.size() / 5 +1;
 			req.setAttribute("lastPage", lastPage);
 			req.setAttribute("currentPage", 1);
@@ -60,7 +60,7 @@ public class RoomController extends HttpServlet {
 			String pageRequest = req.getParameter("page");
 			Integer page = (pageRequest != null && Integer.parseInt(pageRequest) > 0) ? 
 					Integer.parseInt(pageRequest) : 1;
-			List<RoomModel> listRooms = new ArrayList<RoomModel>();
+			List<RoomBean> listRooms = new ArrayList<RoomBean>();
 			if(idHotel != null) {
 				listRooms = RoomBO.Instance().findByHotel(Integer.parseInt(idHotel));		
 			}else if(idCategory != null) {
@@ -84,7 +84,7 @@ public class RoomController extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/html;charset=UTF-8");
 		req.setCharacterEncoding("utf-8");
-		RoomModel model = new RoomModel();
+		RoomBean model = new RoomBean();
 		String idRequest = req.getParameter("id");
 		Integer id = (idRequest != null && Integer.parseInt(idRequest) > 0) ? 
 				Integer.parseInt(idRequest) : -1;
@@ -110,8 +110,8 @@ public class RoomController extends HttpServlet {
 		
 	}
 	
-	public List<RoomModel> findByPage(int page,List<RoomModel> data) {
-		List<RoomModel> result = new ArrayList<RoomModel>();
+	public List<RoomBean> findByPage(int page,List<RoomBean> data) {
+		List<RoomBean> result = new ArrayList<RoomBean>();
 		int startCount = (page-1)*5;
 		int endCount = ((startCount + 4) < data.size()) ? (startCount + 4 ) : data.size() - 1;
 		for (int i = startCount; i <= endCount;i++) {

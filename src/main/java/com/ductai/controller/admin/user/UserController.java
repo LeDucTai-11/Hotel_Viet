@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-import com.ductai.model.bean.UserModel;
+import com.ductai.model.bean.UserBean;
 import com.ductai.model.bo.RoleBO;
 import com.ductai.model.bo.UserBO;
 import com.ductai.utils.SessionObject;
@@ -33,7 +33,7 @@ public class UserController extends HttpServlet {
 		if(action != null && action.equals("add")) {
 			req.setAttribute("tittle", "ADD USER");
 			req.setAttribute("listRoles", RoleBO.Instance().findAll());
-			req.setAttribute("user", new UserModel());
+			req.setAttribute("user", new UserBean());
 			req.getRequestDispatcher("/view/admin/user/user_form.jsp").forward(req, resp);
 		}else if(action != null && action.equals("edit")) {
 			req.setAttribute("tittle", "EDIT USER WITH ID: "+req.getParameter("id"));
@@ -43,7 +43,7 @@ public class UserController extends HttpServlet {
 		}else if(action != null && action.equals("delete")) {
 			String id = req.getParameter("id");
 			UserBO.Instance().delete(Integer.parseInt(id));
-			List<UserModel> listUsers = UserBO.Instance().findAll();
+			List<UserBean> listUsers = UserBO.Instance().findAll();
 			int lastPage = listUsers.size() % 5 == 0 ? listUsers.size() /5 : listUsers.size() / 5 +1;
 			req.setAttribute("lastPage", lastPage);
 			req.setAttribute("currentPage", 1);
@@ -57,7 +57,7 @@ public class UserController extends HttpServlet {
 			String pageRequest = req.getParameter("page");
 			Integer page = (pageRequest != null && Integer.parseInt(pageRequest) > 0) ? 
 					Integer.parseInt(pageRequest) : 1;
-			List<UserModel> listUsers = new ArrayList<UserModel>();
+			List<UserBean> listUsers = new ArrayList<UserBean>();
 			if(idRole != "") {
 				listUsers = UserBO.Instance().findByRole(Integer.parseInt(idRole));		
 			}else {
@@ -77,7 +77,7 @@ public class UserController extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/html;charset=UTF-8");
 		req.setCharacterEncoding("utf-8");
-		UserModel model = new UserModel();
+		UserBean model = new UserBean();
 		String idRequest = req.getParameter("id");
 		Integer id = (idRequest != null && Integer.parseInt(idRequest) > 0) ? 
 				Integer.parseInt(idRequest) : -1;
@@ -87,7 +87,7 @@ public class UserController extends HttpServlet {
 			if(id <= 0) {
 				req.setAttribute("tittle", "ADD USER");
 				req.setAttribute("listRoles", RoleBO.Instance().findAll());
-				req.setAttribute("user", new UserModel());
+				req.setAttribute("user", new UserBean());
 			}else {
 				req.setAttribute("tittle", "EDIT USER WITH ID: "+req.getParameter("id"));
 				req.setAttribute("listRoles", RoleBO.Instance().findAll());
@@ -116,8 +116,8 @@ public class UserController extends HttpServlet {
 		}
 	}
 	
-	public List<UserModel> findByPage(int page,List<UserModel> data) {
-		List<UserModel> result = new ArrayList<UserModel>();
+	public List<UserBean> findByPage(int page,List<UserBean> data) {
+		List<UserBean> result = new ArrayList<UserBean>();
 		int startCount = (page-1)*5;
 		int endCount = ((startCount + 4) < data.size()) ? (startCount + 4 ) : data.size() - 1;
 		for (int i = startCount; i <= endCount;i++) {

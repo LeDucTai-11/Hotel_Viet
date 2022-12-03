@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-import com.ductai.model.bean.CategoryRoomModel;
+import com.ductai.model.bean.CategoryRoomBean;
 import com.ductai.model.bo.CategoryRoomBO;
 import com.ductai.utils.SessionObject;
 import com.ductai.utils.SessionUtil;
@@ -30,7 +30,7 @@ public class CateRoomController extends HttpServlet{
 		String action = req.getParameter("action");
 		if(action != null && action.equals("add")) {
 			req.setAttribute("tittle", "ADD CATEGORY ROOM");
-			req.setAttribute("category", new CategoryRoomModel());
+			req.setAttribute("category", new CategoryRoomBean());
 			req.getRequestDispatcher("/view/admin/category/category_form.jsp").forward(req, resp);
 		}else if(action != null && action.equals("edit")) {
 			req.setAttribute("tittle", "EDIT CATEGORY ROOM WITH ID : "+req.getParameter("id"));
@@ -39,7 +39,7 @@ public class CateRoomController extends HttpServlet{
 		}else if(action != null && action.equals("delete")) {
 			String id = req.getParameter("id");
 			CategoryRoomBO.Instance().delete(Integer.parseInt(id));
-			List<CategoryRoomModel> data = CategoryRoomBO.Instance().findAll();
+			List<CategoryRoomBean> data = CategoryRoomBO.Instance().findAll();
 			int lastPage = data.size() % 5 == 0 ? data.size() /5 : data.size() / 5 +1;
 			req.setAttribute("lastPage", lastPage);
 			req.setAttribute("currentPage", 1);
@@ -52,7 +52,7 @@ public class CateRoomController extends HttpServlet{
 			String pageRequest = req.getParameter("page");
 			Integer page = (pageRequest != null && Integer.parseInt(pageRequest) > 0) ? 
 					Integer.parseInt(pageRequest) : 1;
-			List<CategoryRoomModel> data = CategoryRoomBO.Instance().findAll();
+			List<CategoryRoomBean> data = CategoryRoomBO.Instance().findAll();
 			int lastPage = data.size() % 5 == 0 ? data.size() /5 : data.size() / 5 +1;
 			req.setAttribute("lastPage", lastPage);
 			req.setAttribute("currentPage", page);
@@ -66,7 +66,7 @@ public class CateRoomController extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/html;charset=UTF-8");
 		req.setCharacterEncoding("utf-8");
-		CategoryRoomModel category = new CategoryRoomModel();
+		CategoryRoomBean category = new CategoryRoomBean();
 		String idRequest = req.getParameter("id");
 		Integer id = (idRequest != null && Integer.parseInt(idRequest) > 0) ? 
 				Integer.parseInt(idRequest) : -1;
@@ -78,7 +78,7 @@ public class CateRoomController extends HttpServlet{
 				req.setAttribute("category", CategoryRoomBO.Instance().findByID(id));
 				req.setAttribute("tittle", "EDIT CATEROOM WITH ID : "+req.getParameter("id"));
 			}else {
-				req.setAttribute("category", new CategoryRoomModel());
+				req.setAttribute("category", new CategoryRoomBean());
 				req.setAttribute("tittle", "ADD CATEROOM");
 			}
 			req.getRequestDispatcher("/view/admin/category/category_form.jsp").forward(req, resp);
@@ -104,8 +104,8 @@ public class CateRoomController extends HttpServlet{
 		}
 	}
 	
-	public List<CategoryRoomModel> findByPage(int page,List<CategoryRoomModel> data) {
-		List<CategoryRoomModel> result = new ArrayList<CategoryRoomModel>();
+	public List<CategoryRoomBean> findByPage(int page,List<CategoryRoomBean> data) {
+		List<CategoryRoomBean> result = new ArrayList<CategoryRoomBean>();
 		int startCount = (page-1)*5;
 		int endCount = ((startCount + 4) < data.size()) ? (startCount + 4 ) : data.size() - 1;
 		for (int i = startCount; i <= endCount;i++) {

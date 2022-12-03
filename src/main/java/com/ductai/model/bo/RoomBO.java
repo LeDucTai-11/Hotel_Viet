@@ -2,7 +2,7 @@ package com.ductai.model.bo;
 
 import java.util.List;
 
-import com.ductai.model.bean.RoomModel;
+import com.ductai.model.bean.RoomBean;
 import com.ductai.model.dao.impl.RoomDAO;
 
 public class RoomBO {
@@ -15,23 +15,23 @@ public class RoomBO {
 		return _Instance;
 	}
 	
-	public List<RoomModel> findAll(){
+	public List<RoomBean> findAll(){
 		return RoomDAO.Instance().findAll();
 	}
 	
-	public List<RoomModel> findByHotel(Integer idHotel){
+	public List<RoomBean> findByHotel(Integer idHotel){
 		return RoomDAO.Instance().findByHotel(idHotel);
 	}
 	
-	public List<RoomModel> findByCate(Integer idCate) {
+	public List<RoomBean> findByCate(Integer idCate) {
 		return RoomDAO.Instance().findByCate(idCate);
 	}
 	
-	public RoomModel findByID(Integer id) {
+	public RoomBean findByID(Integer id) {
 		return RoomDAO.Instance().findByID(id);
 	}
 	
-	public void saveRoom(RoomModel model) {
+	public void saveRoom(RoomBean model) {
 		RoomDAO.Instance().saveRoom(model);
 	}
 	

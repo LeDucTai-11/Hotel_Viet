@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ductai.model.bean.HotelModel;
+import com.ductai.model.bean.HotelBean;
 import com.ductai.model.bo.CityBO;
 import com.ductai.model.bo.HotelBO;
 
@@ -23,7 +23,7 @@ public class HotelController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String idCity = req.getParameter("idCity") == null ? "" : req.getParameter("idCity");
-		List<HotelModel> listHotels = new ArrayList<HotelModel>();
+		List<HotelBean> listHotels = new ArrayList<HotelBean>();
 		if(idCity != "") {
 			listHotels = HotelBO.Instance().findAll(Integer.parseInt(idCity));		
 		}else {

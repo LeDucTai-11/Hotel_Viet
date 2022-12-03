@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-import com.ductai.model.bean.RoleModel;
+import com.ductai.model.bean.RoleBean;
 import com.ductai.model.bo.RoleBO;
 import com.ductai.utils.SessionObject;
 import com.ductai.utils.SessionUtil;
@@ -30,7 +30,7 @@ public class RoleController extends HttpServlet {
 		String action = req.getParameter("action");
 		if(action != null && action.equals("add")) {
 			req.setAttribute("tittle", "ADD ROLE");
-			req.setAttribute("role", new RoleModel());
+			req.setAttribute("role", new RoleBean());
 			req.getRequestDispatcher("/view/admin/role/role_form.jsp").forward(req, resp);
 		}else if(action != null && action.equals("edit")) {
 			req.setAttribute("tittle", "EDIT ROLE WITH ID : "+req.getParameter("id"));
@@ -39,7 +39,7 @@ public class RoleController extends HttpServlet {
 		}else if(action != null && action.equals("delete")) {
 			String id = req.getParameter("id");
 			RoleBO.Instance().delete(Integer.parseInt(id));
-			List<RoleModel> data = RoleBO.Instance().findAll();
+			List<RoleBean> data = RoleBO.Instance().findAll();
 			int lastPage = data.size() % 5 == 0 ? data.size() /5 : data.size() / 5 +1;
 			req.setAttribute("lastPage", lastPage);
 			req.setAttribute("currentPage", 1);
@@ -52,7 +52,7 @@ public class RoleController extends HttpServlet {
 			String pageRequest = req.getParameter("page");
 			Integer page = (pageRequest != null && Integer.parseInt(pageRequest) > 0) ? 
 					Integer.parseInt(pageRequest) : 1;
-			List<RoleModel> data = RoleBO.Instance().findAll();
+			List<RoleBean> data = RoleBO.Instance().findAll();
 			int lastPage = data.size() % 5 == 0 ? data.size() /5 : data.size() / 5 +1;
 			req.setAttribute("lastPage", lastPage);
 			req.setAttribute("currentPage", page);
@@ -66,7 +66,7 @@ public class RoleController extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/html;charset=UTF-8");
 		req.setCharacterEncoding("utf-8");
-		RoleModel role = new RoleModel();
+		RoleBean role = new RoleBean();
 		String idRequest = req.getParameter("id");
 		Integer id = (idRequest != null && Integer.parseInt(idRequest) > 0) ? 
 				Integer.parseInt(idRequest) : -1;
@@ -77,7 +77,7 @@ public class RoleController extends HttpServlet {
 				req.setAttribute("role", RoleBO.Instance().findByID(id));
 				req.setAttribute("tittle", "EDIT ROLE WITH ID : "+req.getParameter("id"));
 			}else {
-				req.setAttribute("role", new RoleModel());
+				req.setAttribute("role", new RoleBean());
 				req.setAttribute("tittle", "ADD ROLE");
 			}
 			req.getRequestDispatcher("/view/admin/role/role_form.jsp").forward(req, resp);
@@ -103,8 +103,8 @@ public class RoleController extends HttpServlet {
 		}
 	}
 	
-	public List<RoleModel> findByPage(int page,List<RoleModel> data) {
-		List<RoleModel> result = new ArrayList<RoleModel>();
+	public List<RoleBean> findByPage(int page,List<RoleBean> data) {
+		List<RoleBean> result = new ArrayList<RoleBean>();
 		int startCount = (page-1)*5;
 		int endCount = ((startCount + 4) < data.size()) ? (startCount + 4 ) : data.size() - 1;
 		for (int i = startCount; i <= endCount;i++) {

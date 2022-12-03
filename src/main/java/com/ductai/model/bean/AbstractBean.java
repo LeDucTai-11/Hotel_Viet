@@ -2,7 +2,7 @@ package com.ductai.model.bean;
 
 import java.sql.Timestamp;
 
-public class AbstractModel {
+public class AbstractBean {
 	private Integer id = -1;
 	private Timestamp createdDate;
 	private Timestamp modifiedDate;

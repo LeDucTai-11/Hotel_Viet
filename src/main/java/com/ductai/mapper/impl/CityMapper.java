@@ -4,14 +4,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.ductai.mapper.RowMapper;
-import com.ductai.model.bean.CityModel;
+import com.ductai.model.bean.CityBean;
 
-public class CityMapper implements RowMapper<CityModel> {
+public class CityMapper implements RowMapper<CityBean> {
 
 	@Override
-	public CityModel mapRow(ResultSet rs) {
+	public CityBean mapRow(ResultSet rs) {
 		try {
-			CityModel result = new CityModel();
+			CityBean result = new CityBean();
 			result.setId(rs.getInt("id"));
 			result.setName(rs.getString("name"));
 			result.setStatus(rs.getBoolean("status"));

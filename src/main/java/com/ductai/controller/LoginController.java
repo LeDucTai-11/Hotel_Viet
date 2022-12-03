@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ductai.constant.MessageConstant;
-import com.ductai.model.bean.UserModel;
+import com.ductai.model.bean.UserBean;
 import com.ductai.model.bo.UserBO;
 import com.ductai.utils.SessionObject;
 import com.ductai.utils.SessionUtil;
@@ -42,7 +42,7 @@ public class LoginController extends HttpServlet {
 		if(action != null && action.equals("login")) {
 			String username = req.getParameter("username");
 			String password = req.getParameter("password");
-			UserModel user = UserBO.Instance().findByUserNameAndPasswordAndStatus(username, password);
+			UserBean user = UserBO.Instance().findByUserNameAndPasswordAndStatus(username, password);
 			if(user != null) {
 				SessionUtil.Instance().putValue(req, "USERMODEL", new SessionObject(username, user.getFullName()));
 				if(user.isAdmin()) {

@@ -4,14 +4,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.ductai.mapper.RowMapper;
-import com.ductai.model.bean.HotelModel;
+import com.ductai.model.bean.HotelBean;
 
-public class HotelMapper implements RowMapper<HotelModel> {
+public class HotelMapper implements RowMapper<HotelBean> {
 
 	@Override
-	public HotelModel mapRow(ResultSet rs) {
+	public HotelBean mapRow(ResultSet rs) {
 		try {
-			HotelModel result = new HotelModel();
+			HotelBean result = new HotelBean();
 			result.setId(rs.getInt("id"));
 			result.setName(rs.getString("name"));
 			result.setDescription(rs.getString("description"));

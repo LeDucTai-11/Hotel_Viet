@@ -2,7 +2,7 @@ package com.ductai.model.bo;
 
 import java.util.List;
 
-import com.ductai.model.bean.CategoryRoomModel;
+import com.ductai.model.bean.CategoryRoomBean;
 import com.ductai.model.dao.impl.CategoryRoomDAO;
 
 public class CategoryRoomBO {
@@ -14,16 +14,16 @@ public class CategoryRoomBO {
 		return _Instance;
 	}
 	
-	public List<CategoryRoomModel> findAll() {
+	public List<CategoryRoomBean> findAll() {
 		return CategoryRoomDAO.Instance().findAll();
 	}
 	
-	public CategoryRoomModel findByID(Integer id) {
+	public CategoryRoomBean findByID(Integer id) {
 		return CategoryRoomDAO.Instance().findByID(id);
 	}
 	
 	public boolean isValid(Integer id,String name) {
-		CategoryRoomModel cate = CategoryRoomDAO.Instance().findByName(name);
+		CategoryRoomBean cate = CategoryRoomDAO.Instance().findByName(name);
 		if(cate == null) return true;
 		
 		if(id <= 0) {
@@ -34,7 +34,7 @@ public class CategoryRoomBO {
 		return true;
 	}
 	
-	public void save(CategoryRoomModel category) {
+	public void save(CategoryRoomBean category) {
 		CategoryRoomDAO.Instance().saveCateRoom(category);
 	}
 	

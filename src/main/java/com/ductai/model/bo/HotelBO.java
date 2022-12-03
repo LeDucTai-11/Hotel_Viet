@@ -2,7 +2,7 @@ package com.ductai.model.bo;
 
 import java.util.List;
 
-import com.ductai.model.bean.HotelModel;
+import com.ductai.model.bean.HotelBean;
 import com.ductai.model.dao.impl.HotelDAO;
 
 public class HotelBO {
@@ -14,18 +14,18 @@ public class HotelBO {
 		return _Instance;
 	}
 	
-	public List<HotelModel> findAll(){
+	public List<HotelBean> findAll(){
 		return HotelDAO.Instance().findAll();
 	}
 	
-	public List<HotelModel> findAll(Integer idCity) {
+	public List<HotelBean> findAll(Integer idCity) {
 		return HotelDAO.Instance().findAll(idCity);
 	}
-	public HotelModel findbyID(Integer id) {
+	public HotelBean findbyID(Integer id) {
 		return HotelDAO.Instance().findById(id);
 	}
 	
-	public void saveHotel(HotelModel hotel) {
+	public void saveHotel(HotelBean hotel) {
 		HotelDAO.Instance().saveHotel(hotel);
 	}
 	

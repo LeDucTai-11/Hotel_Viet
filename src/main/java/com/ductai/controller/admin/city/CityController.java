@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-import com.ductai.model.bean.CityModel;
+import com.ductai.model.bean.CityBean;
 import com.ductai.model.bo.CityBO;
 import com.ductai.utils.SessionObject;
 import com.ductai.utils.SessionUtil;
@@ -29,7 +29,7 @@ public class CityController extends HttpServlet {
 		String action = req.getParameter("action");
 		if(action != null && action.equals("add")) {
 			req.setAttribute("tittle", "ADD CITY");
-			req.setAttribute("city", new CityModel());
+			req.setAttribute("city", new CityBean());
 			req.getRequestDispatcher("/view/admin/city/city_form.jsp").forward(req, resp);
 		}else if(action != null && action.equals("edit")) {
 			req.setAttribute("tittle", "EDIT CITY WITH ID : "+req.getParameter("id"));
@@ -38,7 +38,7 @@ public class CityController extends HttpServlet {
 		}else if(action != null && action.equals("delete")) {
 			String id = req.getParameter("id");
 			CityBO.Instance().deleteCity(Integer.parseInt(id));
-			List<CityModel> data = CityBO.Instance().findAll();
+			List<CityBean> data = CityBO.Instance().findAll();
 			int lastPage = data.size() % 5 == 0 ? data.size() /5 : data.size() / 5 +1;
 			req.setAttribute("lastPage", lastPage);
 			req.setAttribute("currentPage", 1);
@@ -51,7 +51,7 @@ public class CityController extends HttpServlet {
 			String pageRequest = req.getParameter("page");
 			Integer page = (pageRequest != null && Integer.parseInt(pageRequest) > 0) ? 
 					Integer.parseInt(pageRequest) : 1;
-			List<CityModel> data = CityBO.Instance().findAll();
+			List<CityBean> data = CityBO.Instance().findAll();
 			int lastPage = data.size() % 5 == 0 ? data.size() /5 : data.size() / 5 +1;
 			req.setAttribute("lastPage", lastPage);
 			req.setAttribute("currentPage", page);
@@ -64,7 +64,7 @@ public class CityController extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/html;charset=UTF-8");
 		req.setCharacterEncoding("utf-8");
-		CityModel city = new CityModel();
+		CityBean city = new CityBean();
 		String idRequest = req.getParameter("id");
 		Integer id = (idRequest != null && Integer.parseInt(idRequest) > 0) ? 
 				Integer.parseInt(idRequest) : -1;
@@ -76,7 +76,7 @@ public class CityController extends HttpServlet {
 				req.setAttribute("city", CityBO.Instance().findByID(id));
 				req.setAttribute("tittle", "EDIT CITY WITH ID : "+req.getParameter("id"));
 			}else {
-				req.setAttribute("city", new CityModel());
+				req.setAttribute("city", new CityBean());
 				req.setAttribute("tittle", "ADD CITY");
 			}
 			req.getRequestDispatcher("/view/admin/city/city_form.jsp").forward(req, resp);
@@ -101,8 +101,8 @@ public class CityController extends HttpServlet {
 		}
 	}
 	
-	public List<CityModel> findByPage(int page,List<CityModel> data) {
-		List<CityModel> result = new ArrayList<CityModel>();
+	public List<CityBean> findByPage(int page,List<CityBean> data) {
+		List<CityBean> result = new ArrayList<CityBean>();
 		int startCount = (page-1)*5;
 		int endCount = ((startCount + 4) < data.size()) ? (startCount + 4 ) : data.size() - 1;
 		for (int i = startCount; i <= endCount;i++) {

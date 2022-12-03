@@ -2,7 +2,7 @@ package com.ductai.model.bo;
 
 import java.util.List;
 
-import com.ductai.model.bean.RoleModel;
+import com.ductai.model.bean.RoleBean;
 import com.ductai.model.dao.impl.RoleDAO;
 
 public class RoleBO {
@@ -14,16 +14,16 @@ public class RoleBO {
 		return _Instance;
 	}
 	
-	public List<RoleModel> findAll() {
+	public List<RoleBean> findAll() {
 		return RoleDAO.Instance().findAll();
 	}
 	
-	public RoleModel findByID(Integer id) {
+	public RoleBean findByID(Integer id) {
 		return RoleDAO.Instance().findByID(id);
 	}
 	
 	public boolean isValid(Integer id,String name) {
-		RoleModel role = RoleDAO.Instance().findByName(name);
+		RoleBean role = RoleDAO.Instance().findByName(name);
 		if(role == null) return true;
 		
 		if(id <= 0) {
@@ -34,7 +34,7 @@ public class RoleBO {
 		return true;
 	}
 	
-	public void saveRole(RoleModel role) {
+	public void saveRole(RoleBean role) {
 		RoleDAO.Instance().saveRole(role);
 	}
 	

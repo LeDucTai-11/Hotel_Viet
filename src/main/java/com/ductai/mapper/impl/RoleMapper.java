@@ -4,14 +4,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.ductai.mapper.RowMapper;
-import com.ductai.model.bean.RoleModel;
+import com.ductai.model.bean.RoleBean;
 
-public class RoleMapper implements RowMapper<RoleModel>{
+public class RoleMapper implements RowMapper<RoleBean>{
 
 	@Override
-	public RoleModel mapRow(ResultSet rs) {
+	public RoleBean mapRow(ResultSet rs) {
 		try {
-			RoleModel result = new RoleModel();
+			RoleBean result = new RoleBean();
 			result.setId(rs.getInt("id"));
 			result.setName(rs.getString("name"));
 			result.setCode(rs.getString("code"));
